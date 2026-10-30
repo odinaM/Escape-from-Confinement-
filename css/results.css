@@ -1,0 +1,71 @@
+/* экан с результатом*/
+/* Заголовки победы/поражения */
+.win-title {
+    color: var(--accent2);
+    text-shadow: 2px 2px 0 rgba(0, 0, 0, 0.2);
+    animation: pulseWin 1.5s infinite alternate;
+}
+
+.lose-title {
+    color: var(--accent);
+    text-shadow: 2px 2px 0 rgba(0, 0, 0, 0.2);
+}
+
+@keyframes pulseWin {
+    from {
+        transform: scale(1);
+    }
+
+    to {
+        transform: scale(1.05);
+    }
+}
+
+/* Сетка с цифрами результатов */
+.results__grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 12px;
+    margin: 14px 0 18px;
+}
+
+.results__grid .cell {
+    background: #fffdf6;
+    border: 3px solid var(--ink);
+    padding: 12px;
+    box-shadow: 4px 4px 0 rgba(0, 0, 0, .25);
+}
+
+.results__grid .cell small {
+    display: block;
+    color: #5a5346;
+    text-transform: uppercase;
+    font-size: 11px;
+    letter-spacing: 1px;
+}
+
+.results__grid .cell b {
+    font-size: 22px;
+}
+
+/* История игр (Таблица рекордов) */
+#historyList li {
+    padding: 8px 0;
+    border-bottom: 1px dashed #ccc;
+    display: flex;
+    justify-content: space-between;
+}
+
+#historyList li:last-child {
+    border-bottom: none;
+}
+
+.history-win {
+    color: var(--accent2);
+    font-weight: bold;
+}
+
+.history-lose {
+    color: var(--accent);
+    font-weight: bold;
+}

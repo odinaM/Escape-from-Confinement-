@@ -1,0 +1,317 @@
+/* экран игра */
+/* Верхняя панель */
+.hud {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+    gap: 10px;
+    margin-bottom: 12px;
+}
+
+.hud .cell {
+    background: #fffdf6;
+    border: 2px solid var(--ink);
+    padding: 8px 10px;
+    box-shadow: 3px 3px 0 rgba(0, 0, 0, .2);
+    font-size: 13px;
+}
+
+.hud .cell b {
+    display: block;
+    font-size: 15px;
+    margin-top: 2px;
+}
+
+.lives-hearts {
+    letter-spacing: 2px;
+    color: var(--accent);
+    font-size: 16px;
+}
+
+/* Игровое поле */
+.field__wrap {
+    position: relative;
+    border: 4px solid var(--ink);
+    box-shadow: var(--shadow);
+    background: #b9b2a1;
+    overflow: hidden;
+}
+
+#gameContainer {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 4 / 3;
+    min-height: 320px;
+    background-color: #d9d2c2;
+    overflow: hidden;
+    cursor: crosshair;
+}
+
+#mapImage {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: none;
+    pointer-events: none;
+    filter: saturate(.95) contrast(1.02);
+}
+
+/* Игрок */
+#player {
+    position: absolute;
+    width: 34px;
+    height: 34px;
+    left: 0;
+    top: 0;
+    background: radial-gradient(circle at 35% 30%, #5f9cff, #1f4fd1 70%);
+    border: 3px solid #0d1b4c;
+    border-radius: 50%;
+    box-shadow: 0 0 0 2px rgba(255, 255, 255, .5), 0 6px 10px rgba(0, 0, 0, .35);
+    z-index: 5;
+}
+
+#player::after {
+    content: "";
+    position: absolute;
+    inset: 8px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, .55);
+}
+
+/* Монстры */
+.monster {
+    position: absolute;
+    width: 22px;
+    height: 22px;
+    background: radial-gradient(circle at 30% 30%, #ff7b6b, #b0201a 75%);
+    border: 2px solid #4a0b08;
+    border-radius: 50% 50% 45% 45%;
+    z-index: 4;
+    box-shadow: 0 3px 6px rgba(0, 0, 0, .35);
+}
+
+.monster::before,
+.monster::after {
+    content: "";
+    position: absolute;
+    top: 6px;
+    width: 5px;
+    height: 5px;
+    background: #fff;
+    border-radius: 50%;
+}
+
+.monster::before {
+    left: 3px;
+}
+
+.monster::after {
+    right: 3px;
+}
+
+.monster.fast {
+    background: radial-gradient(circle at 30% 30%, #ff4a4a, #800000 75%);
+    width: 26px;
+    height: 26px;
+    border-color: #ff0000;
+    box-shadow: 0 0 10px rgba(255, 0, 0, 0.6);
+}
+
+/* Ловушки */
+.trap {
+    position: absolute;
+    width: 44px;
+    height: 44px;
+    background: repeating-linear-gradient(45deg, #2f6b4f 0 6px, #3f8a66 6px 12px);
+    border: 2px solid #143325;
+    border-radius: 6px;
+    opacity: .85;
+    z-index: 3;
+    box-shadow: inset 0 0 0 4px rgba(255, 255, 255, .25);
+    animation: trapPulse 1.2s ease-in-out infinite;
+}
+
+@keyframes trapPulse {
+
+    0%,
+    100% {
+        opacity: .8;
+        transform: scale(1);
+    }
+
+    50% {
+        opacity: 1;
+        transform: scale(1.06);
+    }
+}
+
+/* Аптечки */
+.heal {
+    position: absolute;
+    width: 24px;
+    height: 24px;
+    background: #fff;
+    border: 2px solid #1b1b1b;
+    border-radius: 4px;
+    z-index: 4;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    color: #b33a2b;
+    font-size: 18px;
+    line-height: 1;
+    animation: floatUp 2s ease-in-out infinite alternate;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+}
+
+@keyframes floatUp {
+    from {
+        transform: translateY(0);
+    }
+
+    to {
+        transform: translateY(-5px);
+    }
+}
+
+/* Зона выхода */
+.exit-zone {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    width: 20px;
+    background: repeating-linear-gradient(0deg, rgba(201, 162, 39, 0.8), rgba(201, 162, 39, 0.8) 10px, rgba(201, 162, 39, 0.4) 10px, rgba(201, 162, 39, 0.4) 20px);
+    border-left: 4px solid var(--ink);
+    box-shadow: -5px 0 15px rgba(201, 162, 39, 0.6);
+    z-index: 2;
+    animation: exitPulse 1.5s infinite alternate;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    writing-mode: vertical-rl;
+    font-weight: bold;
+    color: var(--ink);
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    font-size: 12px;
+    padding-top: 10px;
+    user-select: none;
+}
+
+@keyframes exitPulse {
+    from {
+        box-shadow: -5px 0 10px rgba(201, 162, 39, 0.4);
+        opacity: 0.8;
+    }
+
+    to {
+        box-shadow: -10px 0 25px rgba(201, 162, 39, 1);
+        opacity: 1;
+    }
+}
+
+.exit-zone::after {
+    content: "ВЫХОД";
+    position: absolute;
+    background: var(--ink);
+    color: var(--gold);
+    padding: 10px 4px;
+    border-radius: 4px;
+    writing-mode: vertical-rl;
+    font-size: 12px;
+    letter-spacing: 2px;
+}
+
+/* Оверлей (Пауза) */
+.overlay {
+    position: absolute;
+    inset: 0;
+    z-index: 20;
+    background: rgba(20, 18, 14, .72);
+    color: #fff8e7;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    text-align: center;
+    padding: 20px;
+    backdrop-filter: blur(2px);
+}
+
+.overlay h2 {
+    color: #ffd76a;
+    text-shadow: 2px 2px 0 #000;
+}
+
+/* Всплывающие уведомления (Toast) */
+.toast {
+    position: absolute;
+    left: 50%;
+    top: 12px;
+    transform: translateX(-50%);
+    background: #1b1b1b;
+    color: #ffd76a;
+    padding: 8px 14px;
+    border: 2px solid #ffd76a;
+    font-weight: 700;
+    z-index: 30;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity .2s ease;
+    white-space: nowrap;
+}
+
+.toast.show {
+    opacity: 1;
+}
+
+/* Легенда под полем */
+.legend {
+    display: flex;
+    gap: 16px;
+    flex-wrap: wrap;
+    margin-top: 10px;
+    font-size: 13px;
+    color: #4a4439;
+}
+
+.legend span {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.dot {
+    width: 14px;
+    height: 14px;
+    border: 2px solid var(--ink);
+    display: inline-block;
+}
+
+.dot.player {
+    background: #1f4fd1;
+    border-radius: 50%;
+}
+
+.dot.monster {
+    background: #b0201a;
+    border-radius: 50%;
+}
+
+.dot.trap {
+    background: #2f6b4f;
+    border-radius: 3px;
+}
+
+.dot.heal {
+    background: #fff;
+    border-radius: 2px;
+    color: #b33a2b;
+    text-align: center;
+    line-height: 12px;
+    font-weight: bold;
+}

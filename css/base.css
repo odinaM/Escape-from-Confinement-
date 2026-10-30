@@ -1,0 +1,135 @@
+:root {
+    --ink: #1b1b1b;
+    --paper: #e8e2d4;
+    --panel: #d8d0bd;
+    --accent: #b33a2b;
+    --accent2: #2f6b4f;
+    --gold: #c9a227;
+    --shadow: 6px 6px 0 rgba(0, 0, 0, .35);
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    min-height: 100vh;
+    font-family: "Trebuchet MS", "Segoe UI", Tahoma, sans-serif;
+    background: repeating-linear-gradient(45deg, #cfc6b2 0 2px, #e8e2d4 2px 14px);
+    color: var(--ink);
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    padding: 24px 12px 60px;
+}
+
+/*общие элементы*/
+.shell {
+    width: min(960px, 100%);
+    background: var(--paper);
+    border: 4px solid var(--ink);
+    box-shadow: var(--shadow), inset 0 0 0 2px #fff8e7;
+    padding: 18px 18px 22px;
+    position: relative;
+}
+
+.shell::before {
+    content: "";
+    position: absolute;
+    inset: 6px;
+    border: 1px dashed rgba(27, 27, 27, .35);
+    pointer-events: none;
+}
+
+h1,
+h2,
+h3 {
+    margin: 0 0 10px;
+    letter-spacing: .5px;
+}
+
+h1 {
+    font-size: clamp(22px, 4vw, 34px);
+    text-transform: uppercase;
+}
+
+h2 {
+    font-size: clamp(18px, 3vw, 24px);
+}
+
+.hidden {
+    display: none !important;
+}
+
+.muted {
+    color: #5a5346;
+    font-size: 14px;
+}
+
+/* Шапка сайта */
+.topbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 12px;
+    border-bottom: 3px double var(--ink);
+    padding-bottom: 10px;
+    margin-bottom: 16px;
+}
+
+.badge {
+    background: var(--ink);
+    color: var(--paper);
+    padding: 4px 10px;
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+/* Базовые кнопки */
+.btn {
+    font-family: inherit;
+    font-weight: 700;
+    cursor: pointer;
+    background: var(--gold);
+    color: var(--ink);
+    border: 3px solid var(--ink);
+    padding: 10px 16px;
+    box-shadow: 4px 4px 0 var(--ink);
+    transition: transform .05s ease, box-shadow .05s ease;
+    text-transform: uppercase;
+    letter-spacing: .5px;
+    font-size: 14px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+}
+
+.btn:hover {
+    filter: brightness(1.05);
+}
+
+.btn:active {
+    transform: translate(3px, 3px);
+    box-shadow: 1px 1px 0 var(--ink);
+}
+
+.btn.danger {
+    background: var(--accent);
+    color: #fff;
+}
+
+.btn__b {
+    margin-top: 20px;
+    text-align: right;
+}
+
+.btn-group {
+    display: flex;
+    gap: 15px;
+    justify-content: center;
+    align-items: center;
+    margin-top: 10px;
+    flex-wrap: wrap;
+}

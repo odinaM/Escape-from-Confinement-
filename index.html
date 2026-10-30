@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/base.css">
+    <link rel="stylesheet" href="css/game.css">
+    <link rel="stylesheet" href="css/maps.css">
+    <link rel="stylesheet" href="css/results.css">
+    <link rel="stylesheet" href="css/rules.css">
+    <link rel="stylesheet" href="css/splash.css">
+    <title>Побег из Заточения — Правила и Выбор</title>
+
+</head>
+
+<body>
+    <div class="shell">
+        <div class="topbar">
+            <h1>Побег из Заточения</h1>
+        </div>
+        <!-- заставка -->
+        <section id="splashScreen">
+            <div class="splash-content">
+                <div class="splash-art">
+                    <img src="img/cover.webp" alt="Обложка игры" class="cover">
+                </div>
+                <div class="splash-art"></div>
+                <h1 class="splash-title">Побег из Заточения</h1>
+                <p class="splash-subtitle">Сможешь ли ты выбраться живым?</p>
+                <div class="btn-group">
+                    <div class="btn-group">
+                        <button class="btn" id="toMapBtn">Начать играть</button>
+                        <button class="btn" id="toIntroBtn">Правила</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- экран с правилами -->
+        <section id="introScreen" class="hidden">
+            <h2>Инструкция по выживанию</h2>
+            <div class="rules__box">
+                <p>Ты оказался в ловушке. Твоя задача — <b>дойти до правого края карты</b> и сбежать.</p>
+                <ul>
+                    <li>Управление: <span class="key">Стрелки</span> или <span class="key">W</span> <span
+                            class="key">A</span> <span class="key">S</span> <span class="key">D</span>.</li>
+                    <li>Каждые несколько секунд на карте появляются <b>монстры</b> (красные) и <b>ловушки</b> (зеленые).
+                    </li>
+                    <li>Монстры двигаются хаотично и исчезают за краем поля.</li>
+                    <li>При столкновении с монстром или ловушкой ты теряешь <b>1 жизнь</b>.</li>
+                    <li>У тебя есть <b>5 жизней</b>. Если они закончатся — игра окончена.</li>
+                    <li>Нажми <span class="key">ESC</span>, чтобы поставить игру на паузу.</li>
+                </ul>
+                <p><b>Выбирай сложность с умом:</b></p>
+                <p><span class="diff-badge d-easy">ЛЕГКО</span> Меньше монстров, они медленнее. Появляются
+                    <b>аптечки</b> (+1 жизнь).
+                </p>
+                <p><span class="diff-badge d-mid">СРЕДНЕ</span> Стандартные правила. Сбалансированный хаос.</p>
+                <p><span class="diff-badge d-hard">СЛОЖНО</span> Монстров больше, они <b>быстрее</b> и злее. Без
+                    аптечек!</p>
+            </div>
+            <div class="btn__b">
+                <button class="btn" id="toMapBtnRules">Я всё понял, к выбору карты</button>
+            </div>
+        </section>
+
+        <!-- экран с выбором карт -->
+        <section id="mapSelectScreen" class="hidden">
+            <h2>Выберите карту</h2>
+            <div class="cards" id="cardsContainer">
+            </div>
+
+            <div id="nameBlock" class="hidden">
+                <h3>Введите ваше имя</h3>
+                <div class="name__row">
+                    <input type="text" id="playerName" placeholder="Ваше имя" maxlength="20" autocomplete="off">
+                    <button class="btn" id="startBtn">Начать игру</button>
+                </div>
+                <p class="muted" id="selectedMapLabel"></p>
+            </div>
+            <div class="btn__b">
+                <button class="btn" id="backToIntroBtn">Вернуться к правилам</button>
+            </div>
+        </section>
+
+        <!-- экран игры -->
+        <section id="gameScreen" class="hidden">
+            <div class="hud">
+                <div class="cell">Имя<b id="hudName">—</b></div>
+                <div class="cell">Время<b id="hudElapsed">00:00</b></div>
+                <div class="cell">Жизни<b class="lives-hearts" id="hudLives">&#10084;</b></div>
+                <div class="cell">Столкновения<b id="hudHits">0 / 0</b></div>
+            </div>
+
+            <div class="field__wrap">
+                <div id="gameContainer">
+                    <img id="mapImage" alt="Карта">
+                    <div id="exitZone" class="exit-zone"></div>
+                    <div id="player" style="left:0; top:0;"></div>
+                    <div class="toast" id="toast"></div>
+                    <div id="overlay" class="overlay hidden">
+                        <h2 id="overlayTitle">Пауза</h2>
+                        <button class="btn" id="overlayBtn">Продолжить</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="legend">
+                <span><i class="dot player"></i> игрок</span>
+                <span><i class="dot monster"></i> монстр</span>
+                <span><i class="dot trap"></i> ловушка</span>
+                <span><i class="dot heal">+</i> аптечка (только Легко)</span>
+                <span>ESC — пауза</span>
+            </div>
+        </section>
+
+        <!-- экран результата -->
+        <section id="resultsScreen" class="hidden">
+            <h2 id="resTitle" style="text-align: center; font-size: 32px; margin-bottom: 20px;">Результаты</h2>
+
+            <div class="results__grid">
+                <div class="cell"><small>Время в игре</small><b id="resTime">00:00</b></div>
+                <div class="cell"><small>Монстры</small><b id="resMonsters">0</b></div>
+                <div class="cell"><small>Ловушки</small><b id="resTraps">0</b></div>
+                <div class="cell"><small>Осталось жизней</small><b id="resLives">0</b></div>
+            </div>
+
+            <p id="resMessage" class="muted" style="text-align: center; font-size: 16px;"></p>
+
+            <div class="btn-group" style="margin-top: 20px;">
+                <button class="btn" id="restartBtn">Играть сначала</button>
+                <button class="btn btn-secondary" id="historyBtn">Мои результаты</button>
+            </div>
+
+            <!-- история игры -->
+            <div id="historyBlock" class="hidden"
+                style="margin-top: 20px; background: #fffdf6; border: 3px solid var(--ink); padding: 15px; box-shadow: inset 2px 2px 0 rgba(0,0,0,.08);">
+                <h3 style="margin-top: 0;">История игр (Топ-5)</h3>
+                <ul id="historyList" style="list-style: none; padding: 0; margin: 0; font-size: 14px;">
+                    <!-- результаты из js-->
+                </ul>
+            </div>
+        </section>
+    </div>
+
+</body>
+<script src="js/data.js"></script>
+<script src="js/game.js"></script>
+<script src="js/ui.js"></script>
+
+</html>

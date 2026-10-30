@@ -1,0 +1,49 @@
+/* экран с правилами */
+.rules__box {
+    background: #fffdf6;
+    border: 3px solid var(--ink);
+    padding: 20px;
+    box-shadow: inset 2px 2px 0 rgba(0, 0, 0, .08);
+    line-height: 1.6;
+}
+
+.rules__box ul {
+    padding-left: 20px;
+    margin: 10px 0;
+}
+
+.rules__box li {
+    margin-bottom: 8px;
+}
+
+.rules__box .key {
+    background: var(--ink);
+    color: var(--paper);
+    padding: 2px 6px;
+    border-radius: 3px;
+    font-size: 12px;
+    font-family: monospace;
+}
+
+/* Бейджи сложности */
+.diff-badge {
+    display: inline-block;
+    padding: 5px 10px;
+    font-size: 12px;
+    font-weight: bold;
+    border-radius: 4px;
+    color: #fff;
+    margin-left: 5px;
+}
+
+.d-easy {
+    background: #2f6b4f;
+}
+
+.d-mid {
+    background: #c9a227;
+}
+
+.d-hard {
+    background: #b33a2b;
+}

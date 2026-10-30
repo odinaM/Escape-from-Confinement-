@@ -1,0 +1,114 @@
+/* экран с выбором карты*/
+.cards {
+    display: flex;
+    gap: 16px;
+    flex-wrap: wrap;
+    margin: 12px 0 20px;
+}
+
+.card {
+    flex: 1 1 200px;
+    min-width: 180px;
+    cursor: pointer;
+    background: #f6f1e4;
+    border: 3px solid var(--ink);
+    box-shadow: 5px 5px 0 rgba(0, 0, 0, .3);
+    padding: 14px;
+    text-align: center;
+    transition: transform .08s ease;
+    position: relative;
+}
+
+.card:hover {
+    transform: translateY(-3px);
+}
+
+.card.selected {
+    outline: 4px solid var(--accent2);
+    outline-offset: 2px;
+    background: #e6f0e8;
+}
+
+.card .thumb {
+    height: 150px;
+    border: 2px solid var(--ink);
+    margin-bottom: 10px;
+    background-size: cover;
+    background-position: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 34px;
+}
+
+.card .thumb.forest {
+    background: linear-gradient(160deg, #2f6b4f, #7fb07a);
+}
+
+.card .thumb.desert {
+    background: linear-gradient(160deg, #c9a227, #e8c46a);
+}
+
+.card .thumb.swamp {
+    background: linear-gradient(160deg, #4a3b5c, #7b6b8c);
+}
+
+.map-thumb-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+.card b {
+    display: block;
+    font-size: 16px;
+}
+
+.card small {
+    color: #5a5346;
+    display: block;
+    margin-top: 5px;
+}
+
+/* Поле ввода имени */
+.name__row {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+    align-items: center;
+    margin-top: 6px;
+}
+
+input[type="text"] {
+    font-family: inherit;
+    font-size: 16px;
+    padding: 10px 12px;
+    border: 3px solid var(--ink);
+    background: #fffdf6;
+    box-shadow: inset 2px 2px 0 rgba(0, 0, 0, .08);
+    min-width: 220px;
+    flex: 1 1 220px;
+}
+
+input[type="text"].error {
+    border-color: var(--accent);
+    background-color: #ffebeb;
+    animation: shake 0.3s ease;
+}
+
+@keyframes shake {
+
+    0%,
+    100% {
+        transform: translateX(0);
+    }
+
+    25% {
+        transform: translateX(-5px);
+    }
+
+    75% {
+        transform: translateX(5px);
+    }
+}
